@@ -254,8 +254,6 @@ function initContactForm() {
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             // Get form data
             const formData = new FormData(contactForm);
             const formObject = {};
@@ -263,11 +261,15 @@ function initContactForm() {
                 formObject[key] = value;
             });
             
-            // Validate form
-            if (validateForm(formObject)) {
-                showFormSuccess();
-                contactForm.reset();
+            // Validate form; only prevent submission if invalid
+            if (!validateForm(formObject)) {
+                e.preventDefault();
+                return false;
             }
+            
+            // If validation passes, allow form to submit naturally
+            // Don't prevent default - let it POST to FormSubmit
+            return true;
         });
         
         // Add focus effects to form controls

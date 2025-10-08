@@ -936,7 +936,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-content {
   text-align: center;
-  color: var(--color-white);
+  color: var(--law-text-dark);
   max-width: 800px;
   margin: 0 auto;
   animation: heroFadeIn 1.2s ease-out;
@@ -947,6 +947,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: var(--space-8);
+  color: var(--law-text-dark);
   animation: slideInFromLeft 1s ease-out 0.3s both;
 }
 
@@ -963,6 +964,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.3rem;
   margin: 2rem 0;
   opacity: 0.95;
+  color: var(--law-text-dark);
   animation: fadeInUp 1s ease-out 0.9s both;
 }
 
@@ -1418,6 +1420,17 @@ h1, h2, h3, h4, h5, h6 {
 .contact {
   padding: var(--section-padding);
   background: var(--law-white);
+}
+
+/* Ensure all Contact form text renders dark for readability */
+.contact .contact-form,
+.contact .form-label,
+.contact .form-control {
+  color: var(--law-text-dark);
+}
+
+.contact .form-control::placeholder {
+  color: var(--law-text-dark);
 }
 
 .contact-content {
