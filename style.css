@@ -769,12 +769,95 @@ body {
   line-height: 1.6;
   color: var(--law-text-dark);
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure full width on all devices */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Force full width on mobile devices */
+@media (max-width: 768px) {
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden;
+  }
+  
+  .header {
+    width: 100% !important;
+    left: 0;
+    right: 0;
+  }
+  
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .hero {
+    width: 100% !important;
+  }
+  
+  .hero-content {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Ensure all sections take full width */
+  section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .about-content,
+  .practice-grid,
+  .team-grid,
+  .stats-grid,
+  .contact-content,
+  .footer-content {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  .nav-link,
+  .btn,
+  .testimonial-btn,
+  .mobile-menu-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mobile-menu-btn {
+    padding: 8px;
+  }
 }
 
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--space-20);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Typography */
@@ -817,6 +900,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: var(--transition-smooth);
+  width: 100%;
 }
 
 .header-content {
@@ -824,6 +908,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   align-items: center;
   padding: var(--space-16) 0;
+  width: 100%;
 }
 
 .logo {
@@ -1701,14 +1786,151 @@ select.form-control {
   transform: translateY(0);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Comprehensive Responsive Design */
+
+/* Large Desktop (1400px and up) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+  
+  .hero-title-main {
+    font-size: 4rem;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+  }
+  
+  .practice-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Desktop (1200px to 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container {
+    max-width: 1200px;
+  }
+  
+  .hero-title-main {
+    font-size: 3.8rem;
+  }
+  
+  .practice-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Large Tablet (1024px to 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .container {
+    max-width: 1024px;
+  }
+  
+  .hero-title-main {
+    font-size: 3.5rem;
+  }
+  
+  .section-title {
+    font-size: 2.3rem;
+  }
+  
+  .practice-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    max-width: 768px;
+    padding: 0 var(--space-20);
+  }
+  
+  .hero-title-main {
+    font-size: 3rem;
+  }
+  
+  .hero-title-sub {
+    font-size: 1.3rem;
+  }
+  
+  .hero-tagline {
+    font-size: 1.2rem;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .practice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hero-ctas {
+    flex-direction: row;
+    gap: var(--space-16);
+  }
+}
+
+/* Mobile Landscape (481px to 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    padding: 0 var(--space-16);
+    width: 100%;
+    max-width: 100%;
+  }
+  
   .nav {
     display: none;
   }
   
   .mobile-menu-btn {
     display: flex;
+  }
+  
+  .hero {
+    height: 80vh;
+    min-height: 500px;
   }
   
   .hero-title-main {
@@ -1719,9 +1941,12 @@ select.form-control {
     font-size: 1.2rem;
   }
   
-  .hero-ctas {
-    flex-direction: column;
-    align-items: center;
+  .hero-tagline {
+    font-size: 1.1rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
   }
   
   .about-content {
@@ -1729,51 +1954,455 @@ select.form-control {
     gap: 2rem;
   }
   
-  .contact-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .cert-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .container {
-    padding: 0 var(--space-16);
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title-main {
-    font-size: 2rem;
-  }
-  
-  .hero-tagline {
-    font-size: 1.1rem;
-  }
-  
   .practice-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
   
   .team-grid {
     grid-template-columns: 1fr;
   }
   
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
   .values-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-12);
+  }
+  
+  .btn-lg {
+    padding: var(--space-12) var(--space-24);
+    font-size: 1rem;
+  }
+  
+  .member-photo {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .about-img {
+    height: 300px;
+  }
+}
+
+/* Mobile Portrait (320px to 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-12);
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: flex;
+  }
+  
+  .header-content {
+    padding: var(--space-12) 0;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+  }
+  
+  .logo-subtitle {
+    font-size: 0.7rem;
+  }
+  
+  .hero {
+    height: 70vh;
+    min-height: 400px;
+  }
+  
+  .hero-title-main {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  
+  .hero-title-sub {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  
+  .hero-tagline {
+    font-size: 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .about-description {
+    font-size: 1rem;
+  }
+  
+  .practice-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .practice-card {
+    padding: 1.5rem;
+  }
+  
+  .practice-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .practice-icon i {
+    font-size: 1.5rem;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    padding: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .value-item {
+    padding: var(--space-8);
+  }
+  
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .certifications {
+    padding: 1.5rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+    margin-top: 2rem;
+  }
+  
+  .btn {
+    padding: var(--space-10) var(--space-16);
+    font-size: 0.9rem;
+  }
+  
+  .btn-lg {
+    padding: var(--space-12) var(--space-20);
+    font-size: 1rem;
+  }
+  
+  .member-photo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .about-img {
+    height: 250px;
+  }
+  
+  .testimonial-text {
+    font-size: 1.1rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .map-container iframe {
+    height: 250px;
+  }
+}
+
+/* Extra Small Mobile (320px and below) */
+@media (max-width: 320px) {
+  .container {
+    padding: 0 var(--space-8);
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .hero-title-main {
+    font-size: 1.8rem;
+  }
+  
+  .hero-title-sub {
+    font-size: 0.9rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+  }
+  
+  .practice-card {
+    padding: 1rem;
+  }
+  
+  .contact-form {
+    padding: 1rem;
+  }
+  
+  .btn {
+    padding: var(--space-8) var(--space-12);
+    font-size: 0.85rem;
+  }
+  
+  .member-photo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .about-img {
+    height: 200px;
+  }
+}
+
+/* Mobile Menu Responsive Styles */
+@media (max-width: 768px) {
+  .nav-open {
+    display: block !important;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--law-white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 2rem;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .nav-open .nav-list {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .nav-open .nav-link {
+    font-size: 1.1rem;
+    padding: var(--space-8) 0;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+}
+
+/* Tablet-specific optimizations */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  .hero {
+    height: 90vh;
+  }
+  
+  .hero-content {
+    max-width: 700px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero-image,
+  .about-img,
+  .member-photo img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print styles */
+@media print {
+  .header,
+  .mobile-menu-btn,
+  .hero-ctas,
+  .contact-form,
+  .footer {
+    display: none;
+  }
+  
+  .hero {
+    height: auto;
+    page-break-after: always;
+  }
+  
+  .section-title {
+    page-break-after: avoid;
+  }
+  
+  .practice-card,
+  .team-member {
+    page-break-inside: avoid;
+  }
+}
+
+/* Additional responsive utilities */
+@media (max-width: 768px) {
+  /* Improve form usability on mobile */
+  .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Better spacing for mobile */
+  .section-padding {
+    padding: 60px 0;
+  }
+  
+  /* Improve button spacing */
+  .btn {
+    margin: 4px 0;
+  }
+  
+  /* Better image handling */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Improve text readability */
+  p, li {
+    line-height: 1.7;
+  }
+  
+  /* Better focus states for accessibility */
+  .btn:focus,
+  .form-control:focus,
+  .nav-link:focus {
+    outline: 2px solid var(--law-gold);
+    outline-offset: 2px;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: #000;
+    border: 2px solid #000;
+  }
+  
+  .nav-link {
+    color: #000;
+  }
+  
+  .nav-link:hover {
+    color: #000;
+    text-decoration: underline;
+  }
+}
+
+/* Dark mode improvements */
+@media (prefers-color-scheme: dark) {
+  .hero-overlay {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.7) 100%);
+  }
+  
+  /* Keep original header styling - no darkening */
+  .header {
+    background: var(--law-white);
+  }
+  
+  .nav-open {
+    background: var(--law-white);
   }
 }

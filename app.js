@@ -258,25 +258,14 @@ function initContactForm() {
 // Header Scroll Effect
 function initHeaderScroll() {
     const header = document.querySelector('.header');
-    let lastScrollY = window.scrollY;
-    
+    if (!header) return;
+
+    // Ensure the header remains visible and static (no hide on scroll)
+    header.style.transform = 'none';
+
+    // Remove any previously attached scroll behavior by setting a no-op listener
     window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-        
-        // Hide header on scroll down, show on scroll up
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollY = currentScrollY;
+        // Intentionally left blank to keep header static during scroll
     });
 }
 
@@ -410,15 +399,61 @@ window.addEventListener('load', function() {
     }
 });
 
-// Handle resize events
+// Handle resize events with comprehensive responsive behavior
 window.addEventListener('resize', debounce(function() {
-    // Recalculate any size-dependent elements
     const nav = document.getElementById('nav');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    
+    // Close mobile menu on desktop
     if (window.innerWidth > 768) {
-        nav.classList.remove('nav-open');
-        document.getElementById('mobile-menu-btn').classList.remove('active');
+        if (nav) nav.classList.remove('nav-open');
+        if (mobileMenuBtn) mobileMenuBtn.classList.remove('active');
     }
+    
+    // Recalculate hero height for mobile devices
+    const hero = document.querySelector('.hero');
+    if (hero && window.innerWidth <= 768) {
+        hero.style.height = window.innerHeight + 'px';
+    }
+    
+    // Adjust testimonial container for mobile
+    const testimonialContainer = document.querySelector('.testimonials-container');
+    if (testimonialContainer && window.innerWidth <= 480) {
+        testimonialContainer.style.maxWidth = '100%';
+    }
+    
+    // Recalculate grid layouts
+    recalculateGridLayouts();
 }, 250));
+
+// Function to recalculate grid layouts based on screen size
+function recalculateGridLayouts() {
+    const practiceGrid = document.querySelector('.practice-grid');
+    const teamGrid = document.querySelector('.team-grid');
+    const statsGrid = document.querySelector('.stats-grid');
+    
+    if (window.innerWidth <= 480) {
+        // Single column for very small screens
+        if (practiceGrid) practiceGrid.style.gridTemplateColumns = '1fr';
+        if (teamGrid) teamGrid.style.gridTemplateColumns = '1fr';
+        if (statsGrid) statsGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+    } else if (window.innerWidth <= 768) {
+        // Single column for mobile
+        if (practiceGrid) practiceGrid.style.gridTemplateColumns = '1fr';
+        if (teamGrid) teamGrid.style.gridTemplateColumns = '1fr';
+        if (statsGrid) statsGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+    } else if (window.innerWidth <= 1024) {
+        // Two columns for tablet
+        if (practiceGrid) practiceGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+        if (teamGrid) teamGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+        if (statsGrid) statsGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+    } else {
+        // Three or more columns for desktop
+        if (practiceGrid) practiceGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        if (teamGrid) teamGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 1fr))';
+        if (statsGrid) statsGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+    }
+}
 
 // Add accessibility improvements
 function initAccessibility() {
@@ -451,3 +486,121 @@ function initAccessibility() {
 
 // Initialize accessibility features
 initAccessibility();
+
+// Enhanced mobile touch support
+function initMobileTouchSupport() {
+    // Add touch support for mobile menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.click();
+        });
+    }
+    
+    // Add touch support for navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('touchstart', function(e) {
+            // Add visual feedback for touch
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        link.addEventListener('touchend', function(e) {
+            // Remove visual feedback
+            this.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Add touch support for buttons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('touchstart', function(e) {
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        button.addEventListener('touchend', function(e) {
+            this.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Prevent zoom on double tap for buttons
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+}
+
+// Initialize mobile touch support
+initMobileTouchSupport();
+
+// Viewport height fix for mobile browsers
+function setViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Force full width on mobile devices
+function ensureFullWidth() {
+    if (window.innerWidth <= 768) {
+        // Force full width on mobile
+        document.documentElement.style.width = '100%';
+        document.body.style.width = '100%';
+        document.body.style.maxWidth = '100%';
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        
+        // Ensure header takes full width
+        const header = document.querySelector('.header');
+        if (header) {
+            header.style.width = '100%';
+            header.style.left = '0';
+            header.style.right = '0';
+        }
+        
+        // Ensure container takes full width
+        const containers = document.querySelectorAll('.container');
+        containers.forEach(container => {
+            container.style.width = '100%';
+            container.style.maxWidth = '100%';
+        });
+    }
+}
+
+// Set viewport height on load and resize
+window.addEventListener('load', function() {
+    setViewportHeight();
+    ensureFullWidth();
+});
+
+window.addEventListener('resize', debounce(function() {
+    setViewportHeight();
+    ensureFullWidth();
+}, 100));
+
+// Add CSS custom property for viewport height
+const viewportHeightStyle = `
+    :root {
+        --vh: 1vh;
+    }
+    
+    .hero {
+        height: calc(var(--vh, 1vh) * 100);
+    }
+    
+    @media (max-width: 768px) {
+        .hero {
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 400px;
+        }
+    }
+`;
+
+// Inject viewport height styles
+const viewportStyleSheet = document.createElement('style');
+viewportStyleSheet.textContent = viewportHeightStyle;
+document.head.appendChild(viewportStyleSheet);
