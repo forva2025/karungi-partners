@@ -337,6 +337,7 @@
                         <input type="hidden" name="_template" value="table">
                         <input type="hidden" name="_next" value="thank-you.html">
                         <input type="hidden" name="_cc" value="ochiriaeliasonyait@gmail.com">
+                        <input type="hidden" name="_autoresponse" value="Thank you for contacting Karungi & Partners. We have received your message and will respond within 24 hours.">
                         <div class="form-group">
                             <label for="name" class="form-label">Full Name</label>
                             <input type="text" id="name" name="name" class="form-control" required>
@@ -367,7 +368,7 @@
                             <label for="message" class="form-label">Message</label>
                             <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full-width">Send Message</button>
+                        <button type="button" class="btn btn-primary btn-full-width" onclick="showSubmitPopup()">Send Message</button>
                     </form>
                 </div>
                 <div class="contact-info">
@@ -465,6 +466,262 @@
         </div>
     </footer>
 
+    <!-- Submit Popup Modal -->
+    <div id="submitPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Message Sent Successfully!</h3>
+                <span class="popup-close" onclick="closeSubmitPopup()">&times;</span>
+            </div>
+            <div class="popup-body">
+                <div class="success-icon-popup">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p>Thank you for contacting Karungi & Partners!</p>
+                <p>We have received your message and will respond within 24 hours.</p>
+                <div class="popup-details">
+                    <p><strong>What happens next?</strong></p>
+                    <ul>
+                        <li><i class="fas fa-clock"></i> We'll review your message within 2-4 hours</li>
+                        <li><i class="fas fa-phone"></i> Our team will contact you within 24 hours</li>
+                        <li><i class="fas fa-calendar"></i> We'll schedule a consultation if needed</li>
+                    </ul>
+                </div>
+                <div class="popup-contact">
+                    <p><strong>Need immediate assistance?</strong></p>
+                    <p>Call us at <a href="tel:+256414123456">+256 414 123 456</a></p>
+                    <p>Email: <a href="mailto:info@karungipartners.co.ug">info@karungipartners.co.ug</a></p>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button onclick="closeSubmitPopup()" class="btn btn-primary">Close</button>
+                <button onclick="resetForm()" class="btn btn-secondary">Send Another Message</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
+    <script>
+        function showSubmitPopup() {
+            // Validate form first
+            const form = document.getElementById('contact-form');
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields (Name, Email, and Message).');
+                return;
+            }
+            
+            // Show popup
+            document.getElementById('submitPopup').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSubmitPopup() {
+            document.getElementById('submitPopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function resetForm() {
+            document.getElementById('contact-form').reset();
+            closeSubmitPopup();
+        }
+        
+        // Close popup when clicking outside
+        document.getElementById('submitPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSubmitPopup();
+            }
+        });
+        
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSubmitPopup();
+            }
+        });
+    </script>
+    
+    <style>
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .popup-content {
+            background: var(--law-white);
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--law-gray);
+        }
+        
+        .popup-header h3 {
+            color: var(--law-navy);
+            margin: 0;
+            font-family: var(--font-heading);
+        }
+        
+        .popup-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--law-dark-gray);
+            transition: var(--transition-smooth);
+        }
+        
+        .popup-close:hover {
+            color: var(--law-navy);
+        }
+        
+        .popup-body {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .success-icon-popup {
+            font-size: 3rem;
+            color: var(--law-gold);
+            margin-bottom: 1rem;
+            animation: bounce 1s ease-out;
+        }
+        
+        .popup-body p {
+            color: var(--law-text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .popup-details {
+            background: var(--law-ivory);
+            padding: 1rem;
+            border-radius: var(--radius-base);
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .popup-details p {
+            color: var(--law-navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .popup-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .popup-details li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--law-text-dark);
+            font-size: 0.9rem;
+        }
+        
+        .popup-details i {
+            color: var(--law-gold);
+        }
+        
+        .popup-contact {
+            background: var(--law-gray);
+            padding: 1rem;
+            border-radius: var(--radius-base);
+            margin: 1.5rem 0;
+        }
+        
+        .popup-contact p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .popup-contact a {
+            color: var(--law-gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .popup-contact a:hover {
+            color: var(--law-navy);
+        }
+        
+        .popup-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--law-gray);
+        }
+        
+        .popup-footer .btn {
+            flex: 1;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .popup-content {
+                width: 95%;
+                margin: 1rem;
+            }
+            
+            .popup-footer {
+                flex-direction: column;
+            }
+            
+            .popup-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </body>
 </html>

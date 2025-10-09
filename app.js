@@ -248,123 +248,12 @@ function initTestimonialSlider() {
     }
 }
 
-// Contact Form Handling
+// Contact Form Handling - Completely removed to prevent interference
 function initContactForm() {
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            // Get form data
-            const formData = new FormData(contactForm);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            
-            // Validate form; only prevent submission if invalid
-            if (!validateForm(formObject)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // If validation passes, allow form to submit naturally
-            // Don't prevent default - let it POST to FormSubmit
-            return true;
-        });
-        
-        // Add focus effects to form controls
-        const formControls = contactForm.querySelectorAll('.form-control');
-        formControls.forEach(control => {
-            control.addEventListener('focus', function() {
-                this.parentElement.classList.add('focused');
-            });
-            
-            control.addEventListener('blur', function() {
-                if (!this.value) {
-                    this.parentElement.classList.remove('focused');
-                }
-            });
-        });
-    }
-    
-    function validateForm(data) {
-        let isValid = true;
-        
-        // Remove previous error messages
-        document.querySelectorAll('.error-message').forEach(msg => msg.remove());
-        
-        // Validate required fields
-        if (!data.name || data.name.trim().length < 2) {
-            showFieldError('name', 'Please enter a valid name');
-            isValid = false;
-        }
-        
-        if (!data.email || !isValidEmail(data.email)) {
-            showFieldError('email', 'Please enter a valid email address');
-            isValid = false;
-        }
-        
-        if (!data.message || data.message.trim().length < 10) {
-            showFieldError('message', 'Please enter a message with at least 10 characters');
-            isValid = false;
-        }
-        
-        return isValid;
-    }
-    
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-    
-    function showFieldError(fieldName, message) {
-        const field = document.getElementById(fieldName);
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.style.color = '#ff4444';
-        errorDiv.style.fontSize = '0.9rem';
-        errorDiv.style.marginTop = '0.5rem';
-        errorDiv.textContent = message;
-        
-        field.parentElement.appendChild(errorDiv);
-        field.style.borderColor = '#ff4444';
-        
-        // Remove error styling on input
-        field.addEventListener('input', function() {
-            this.style.borderColor = '';
-            const errorMsg = this.parentElement.querySelector('.error-message');
-            if (errorMsg) {
-                errorMsg.remove();
-            }
-        }, { once: true });
-    }
-    
-    function showFormSuccess() {
-        const successDiv = document.createElement('div');
-        successDiv.className = 'form-success';
-        successDiv.innerHTML = `
-            <div style="
-                background: #4CAF50;
-                color: white;
-                padding: 1rem;
-                border-radius: 8px;
-                margin-bottom: 1rem;
-                text-align: center;
-                animation: slideDown 0.3s ease-out;
-            ">
-                <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>
-                Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
-            </div>
-        `;
-        
-        contactForm.insertBefore(successDiv, contactForm.firstChild);
-        
-        // Remove success message after 5 seconds
-        setTimeout(() => {
-            successDiv.remove();
-        }, 5000);
-    }
+    // No JavaScript interference - let form submit naturally to FormSubmit
+    // Form will redirect to thank-you.html after successful submission
 }
+
 
 // Header Scroll Effect
 function initHeaderScroll() {
